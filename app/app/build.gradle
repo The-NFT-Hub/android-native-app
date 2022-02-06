@@ -1,16 +1,31 @@
+import org.ajoberstar.grgit.Grgit
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.ajoberstar:grgit:1.5.0'
+    }
+}
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
 
 android {
+
+    project.ext.set("versionCodeManualOverride", null)
+
     compileSdk 32
 
     defaultConfig {
         applicationId "nl.gewoonjaap.nfthub"
         minSdk 29
         targetSdk 32
-        versionCode 1
+        versionCode getCustomVersionCode()
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -30,6 +45,23 @@ android {
         jvmTarget = '1.8'
     }
 }
+
+def getCustomVersionCode() {
+
+    if (project.versionCodeManualOverride != null) {
+        return project.versionCodeManualOverride
+    }
+
+    // current dir is <your proj>/app, so it's likely that all your git repo files are in the dir
+    // above.
+    ext.repo = Grgit.open(project.file('../..'))
+
+    // should result in the same value as running
+    // git rev-list <checked out branch name> | wc -l
+    def numOfCommits = ext.repo.log().size()
+    return numOfCommits
+}
+
 
 dependencies {
 
