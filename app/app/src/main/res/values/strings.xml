@@ -2,4 +2,5 @@
     <string name="app_name">NFT Hub</string>
     <string name="label_wallet">Wallet Address</string>
     <string name="show_nfts_button">Show NFT\'s</string>
+    <string name="walletaddressplaceholder">{{WalletAddressPlaceHolder}}</string>
 </resources>
