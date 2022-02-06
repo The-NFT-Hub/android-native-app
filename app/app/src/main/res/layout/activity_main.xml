@@ -22,6 +22,7 @@
         tools:ignore="MissingConstraints"
         app:startIconDrawable="@drawable/ic_ethereum_eth_logo"
         app:startIconTint="@null"
+        app:endIconMode="clear_text"
 
         app:startIconContentDescription="Zoeken">
 
