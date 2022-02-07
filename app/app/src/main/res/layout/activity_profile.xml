@@ -36,7 +36,7 @@
         android:id="@+id/view"
         android:layout_width="wrap_content"
         android:layout_height="125dp"
-        android:background="@color/material_dynamic_primary90"
+        android:background="@color/launcher_background_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
