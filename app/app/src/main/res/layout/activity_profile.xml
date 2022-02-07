@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/launcher_background_color"
     tools:context=".ProfileActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/NFT_Profile_Image"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,23 +23,51 @@
         android:id="@+id/WalletAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
-        android:fontFamily="@font/roboto_bold"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="132dp"
+        android:layout_marginEnd="16dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/roboto_black"
+        android:maxLength="40"
+        android:maxLines="1"
         android:text="@string/walletaddressplaceholder"
+        android:textColor="@color/material_dynamic_primary100"
         android:textStyle="bold"
+        android:translationZ="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:translationZ="10dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/profileBanner"
         android:layout_width="wrap_content"
         android:layout_height="125dp"
         android:background="@color/launcher_background_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/ProfileNameBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:background="@color/launcher_background_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:translationZ="-1dp"/>
+
+    <View
+        android:id="@+id/backgroundColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/layout_bg"
+        android:translationZ="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:elevation="10dp"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
