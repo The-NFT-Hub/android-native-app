@@ -31,7 +31,7 @@
         android:maxLength="40"
         android:maxLines="1"
         android:text="@string/walletaddressplaceholder"
-        android:textColor="@color/material_dynamic_primary100"
+        android:textColor="@color/NFTWalletAddressProfilePage"
         android:textStyle="bold"
         android:translationZ="10dp"
         app:layout_constraintEnd_toEndOf="parent"
