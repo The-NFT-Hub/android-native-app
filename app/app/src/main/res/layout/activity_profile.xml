@@ -51,6 +51,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/NFT_Profile_Chain_Image"
+        android:layout_width="22dp"
+        android:layout_height="32dp"
+        android:elevation="10dp"
+        android:padding="1dp"
+        android:src="@drawable/ic_ethereum_eth_logo"
+        app:layout_constraintBottom_toBottomOf="@+id/NFT_Profile_Image"
+        app:layout_constraintEnd_toEndOf="@+id/NFT_Profile_Image"
+    />
+
     <TextView
         android:id="@+id/WalletAddress"
         android:layout_width="wrap_content"

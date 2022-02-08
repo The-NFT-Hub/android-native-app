@@ -21,7 +21,8 @@ class ProfileActivity : AppCompatActivity() {
 
     private var address: String = ""
     private var chain: String = ""
-    private var ProfileImage: ImageView? = null
+    private var profileImage: ImageView? = null
+    private var addressTextView: TextView? = null;
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,25 +32,30 @@ class ProfileActivity : AppCompatActivity() {
         address = intent.getStringExtra(WALLET_ADDRESS).toString()
         chain = intent.getStringExtra(WALLET_CHAIN).toString()
 
-        val addressTextView = findViewById<TextView?>(R.id.WalletAddress)
-        ProfileImage = findViewById(R.id.NFT_Profile_Image)
+        addressTextView = findViewById(R.id.WalletAddress)
+        profileImage = findViewById(R.id.NFT_Profile_Image)
+
+        setupWalletAddressText()
+        getNFTProfileData()
+
+    }
+
+    private fun setupWalletAddressText(){
+        if(addressTextView == null) return
+
 
         if(address.isEmpty()) address = "Unknown"
-
-
-            addressTextView.apply {
-            text = address
+        addressTextView.apply {
+            this!!.text = address
         }
 
-        addressTextView.setOnClickListener {
+        addressTextView!!.setOnClickListener {
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("Copied Text", address)
             clipboard.setPrimaryClip(clip)
 
             Toast.makeText(this, "Copied Wallet Address", Toast.LENGTH_SHORT).show()
         }
-
-        getNFTProfileData()
 
     }
 
@@ -63,9 +69,9 @@ class ProfileActivity : AppCompatActivity() {
          val userProfile: UserProfileDataResponse? = client.getUserProfile(chain, address)
          if(userProfile != null){
              Toast.makeText(this@ProfileActivity, "Got Data, nfts: ${userProfile.nfts.size}", Toast.LENGTH_LONG).show()
-             if(ProfileImage != null) {
+             if(profileImage != null) {
                  Glide.with(this@ProfileActivity).load(userProfile.nfts.random().metadata.image)
-                     .into(ProfileImage!!)
+                     .into(profileImage!!)
              }
          }
          else{
