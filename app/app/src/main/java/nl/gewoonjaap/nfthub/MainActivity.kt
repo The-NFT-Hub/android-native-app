@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 
 const val WALLET_ADDRESS = "nl.gewoonjaap.nfthub.WALLET_ADDRESS"
+const val WALLET_CHAIN = "nl.gewoonjaap.nfthub.CHAIN"
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
             val intent = Intent(this, ProfileActivity::class.java).apply {
               putExtra(WALLET_ADDRESS, walletAddress)
+                putExtra(WALLET_CHAIN, "eth")
           }
             startActivity(intent)
         }
