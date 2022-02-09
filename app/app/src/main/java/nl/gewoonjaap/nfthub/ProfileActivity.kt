@@ -70,7 +70,7 @@ class ProfileActivity : AppCompatActivity() {
          if(userProfile != null){
              Toast.makeText(this@ProfileActivity, "Got Data, nfts: ${userProfile.nfts.size}", Toast.LENGTH_LONG).show()
              if(profileImage != null) {
-                 Glide.with(this@ProfileActivity).load(userProfile.nfts.random().metadata.image)
+                 Glide.with(this@ProfileActivity).load(userProfile.nfts.random().metadata?.image)
                      .into(profileImage!!)
              }
          }
