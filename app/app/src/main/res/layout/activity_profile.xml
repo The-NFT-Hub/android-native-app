@@ -36,8 +36,18 @@
         android:elevation="10dp"
         android:translationZ="0dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"></View>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/nft_card_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/backgroundColor" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/NFT_Profile_Image"
@@ -59,8 +69,7 @@
         android:padding="1dp"
         android:src="@drawable/ic_ethereum_eth_logo"
         app:layout_constraintBottom_toBottomOf="@+id/NFT_Profile_Image"
-        app:layout_constraintEnd_toEndOf="@+id/NFT_Profile_Image"
-    />
+        app:layout_constraintEnd_toEndOf="@+id/NFT_Profile_Image" />
 
     <TextView
         android:id="@+id/WalletAddress"
@@ -85,5 +94,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileBanner" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

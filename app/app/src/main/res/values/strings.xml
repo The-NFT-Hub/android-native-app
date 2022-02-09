@@ -3,4 +3,8 @@
     <string name="label_wallet">Wallet Address</string>
     <string name="show_nfts_button">Show NFT\'s</string>
     <string name="walletaddressplaceholder">{{WalletAddressPlaceHolder}}</string>
+    <string name="nft_card_image_picture_description">Image Picture</string>
+    <string name="nft_card_name_title">NFT Name # ID</string>
+    <string name="nft_card_collection_name">NFT Collection Name</string>
+    <string name="nft_card_description">NFT Description</string>
 </resources>
