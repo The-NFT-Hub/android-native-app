@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../layout/custom_preview.xml" value="0.6713645099295323" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2995" />
         <entry key="app/src/main/res/drawable/ethereum_eth_logo.xml" value="0.2995" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2995" />
@@ -10,6 +11,7 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2995" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/nft_card.xml" value="0.19814814814814816" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2995" />
       </map>
     </option>

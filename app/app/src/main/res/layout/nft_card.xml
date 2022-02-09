@@ -4,6 +4,7 @@
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    style="@style/Widget.Material3.CardView.Elevated"
     android:layout_margin="8dp">
 
 <LinearLayout
@@ -14,8 +15,8 @@
     <!-- Media -->
     <com.google.android.material.imageview.ShapeableImageView
         android:layout_width="match_parent"
-        android:layout_height="194dp"
-        android:scaleType="centerCrop"
+        android:layout_height="350dp"
+        android:scaleType="center"
         android:contentDescription="@string/nft_card_image_picture_description"
         app:shapeAppearanceOverlay="@style/roundedImageView"
         android:id="@+id/nft_image_card"

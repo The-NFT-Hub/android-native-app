@@ -27,7 +27,6 @@ class NFTCardAdapter(private val nftList: List<NFTDataResponse>):
 
             Glide.with(holder.imageView)
                 .load(nftItem.metadata?.image)
-                .centerCrop()
                 .into(holder.imageView)
         } catch (E: Exception){}
 
