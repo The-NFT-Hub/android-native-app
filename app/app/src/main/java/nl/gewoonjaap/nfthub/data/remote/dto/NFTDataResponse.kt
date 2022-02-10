@@ -6,9 +6,9 @@ import kotlinx.serialization.Serializable
 data class NFTDataResponse (
     val token_address: String,
     val token_id: String,
-    val block_number_minted: String,
+    val block_number_minted: String? = "Unknown mint blocknumber",
     val owner_of: String,
-    val block_number: String,
+    val block_number: String? = "Unknown blocknumber",
     val amount: String,
     val contract_type: String,
     val name: String? = "Unkown name",
