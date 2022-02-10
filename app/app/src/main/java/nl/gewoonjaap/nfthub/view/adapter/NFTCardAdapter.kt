@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import nl.gewoonjaap.nfthub.R
 import nl.gewoonjaap.nfthub.data.remote.dto.NFTDataResponse
+import nl.gewoonjaap.nfthub.helpers.StringHelper
 
 class NFTCardAdapter(private val nftList: List<NFTDataResponse>):
     RecyclerView.Adapter<NFTCardAdapter.ViewHolder>() {
@@ -31,8 +32,8 @@ class NFTCardAdapter(private val nftList: List<NFTDataResponse>):
         } catch (E: Exception){}
 
         holder.nameText.text = nftItem.metadata?.name ?: "${nftItem.name ?: "Unknown Name"} #${nftItem.token_id}"
-        holder.collectionText.text = nftItem.name
-        holder.descriptionText.text = nftItem.metadata?.description ?: "Missing Description"
+        holder.collectionText.text =  nftItem.name
+        holder.descriptionText.text = StringHelper.ellipsize(nftItem.metadata?.description ?: "Missing Description", 1500)
 
     }
 

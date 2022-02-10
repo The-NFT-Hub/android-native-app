@@ -24,7 +24,7 @@
         app:startIconTint="@null"
         app:endIconMode="clear_text"
 
-        app:startIconContentDescription="Zoeken">
+        app:startIconContentDescription="Search">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/WalletAddressInput"
