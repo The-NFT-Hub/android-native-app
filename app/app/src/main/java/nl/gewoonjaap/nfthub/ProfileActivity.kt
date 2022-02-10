@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import kotlinx.coroutines.*
 import nl.gewoonjaap.nfthub.data.remote.UserProfileService
 import nl.gewoonjaap.nfthub.data.remote.dto.UserProfileDataResponse
+import nl.gewoonjaap.nfthub.helpers.ChainSelectorHelper
 import nl.gewoonjaap.nfthub.helpers.StringHelper
 import nl.gewoonjaap.nfthub.view.adapter.NFTCardAdapter
 
@@ -26,6 +27,7 @@ class ProfileActivity : AppCompatActivity() {
     private var address: String = ""
     private var chain: String = ""
     private var profileImage: ImageView? = null
+    private var chainImage: ImageView? = null
     private var addressTextView: TextView? = null;
     private var recyclerView: RecyclerView? = null;
     private var adapter: NFTCardAdapter = NFTCardAdapter(emptyList())
@@ -40,9 +42,11 @@ class ProfileActivity : AppCompatActivity() {
 
         addressTextView = findViewById(R.id.WalletAddress)
         profileImage = findViewById(R.id.NFT_Profile_Image)
+        chainImage = findViewById(R.id.NFT_Profile_Chain_Image)
 
         setupRecyclerView()
         setupWalletAddressText()
+        setupChainImage()
         getNFTProfileData()
 
     }
@@ -50,15 +54,15 @@ class ProfileActivity : AppCompatActivity() {
     private fun setupRecyclerView(){
         recyclerView = findViewById(R.id.nft_card_recyclerView)
         recyclerView!!.layoutManager = LinearLayoutManager(this)
-
         recyclerView!!.adapter = adapter
+    }
 
-
+    private fun setupChainImage(){
+        chainImage!!.setImageResource(ChainSelectorHelper.getChainDrawableByName(chain))
     }
 
     private fun setupWalletAddressText(){
         if(addressTextView == null) return
-
 
         if(address.isEmpty()) address = "Unknown"
         addressTextView.apply {
@@ -75,8 +79,8 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onPause() {
+        super.onPause()
         cleanUp()
     }
 

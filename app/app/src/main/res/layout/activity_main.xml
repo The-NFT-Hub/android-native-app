@@ -6,35 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/WalletAddressInputLayout"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/WalletAddressInputHorizontalBox"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:hint="@string/label_wallet"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        app:startIconDrawable="@drawable/ic_ethereum_eth_logo"
-        app:startIconTint="@null"
-        app:endIconMode="clear_text"
+        <Spinner
+            android:layout_marginStart="16dp"
+            android:id="@+id/chain_spinner"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
-        app:startIconContentDescription="Search">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/WalletAddressInput"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/WalletAddressInputLayout"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto"
-            android:inputType="text"
-            android:maxLines="1" />
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="@string/label_wallet"
+            app:endIconMode="clear_text"
+            app:layout_constraintBottom_toBottomOf="parent"
 
-    </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconContentDescription="Search"
+
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/WalletAddressInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:inputType="text"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/showNFTButton"
@@ -48,7 +66,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/WalletAddressInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/WalletAddressInputHorizontalBox" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
