@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NFTAttributesResponse (
-    val trait_type: String,
-    val value: String
+    val trait_type: String? = "Unknown",
+    val value: String? = "Unknown"
     )

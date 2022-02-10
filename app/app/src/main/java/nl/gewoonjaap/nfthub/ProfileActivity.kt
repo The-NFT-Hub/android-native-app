@@ -84,9 +84,13 @@ class ProfileActivity : AppCompatActivity() {
          val userProfile: UserProfileDataResponse? = client.getUserProfile(chain, address)
          if(userProfile != null){
              Toast.makeText(this@ProfileActivity, "Got Data, nfts: ${userProfile.nfts.size}", Toast.LENGTH_LONG).show()
-             if(profileImage != null) {
-                 Glide.with(this@ProfileActivity).load(userProfile.nfts.random().metadata?.image)
+             if(profileImage != null && userProfile.nfts.isNotEmpty()) {
+                 val profileImageURL: String = userProfile.nfts.filter { it.metadata?.image != null }.random().metadata!!.image!!
+                 Glide.with(this@ProfileActivity).load(profileImageURL)
                      .into(profileImage!!)
+             }
+             if(userProfile.nfts.isEmpty()){
+                 Toast.makeText(this@ProfileActivity, "This wallet has no NFTs", Toast.LENGTH_LONG).show()
              }
              adapter = NFTCardAdapter(userProfile.nfts)
              recyclerView!!.adapter = adapter

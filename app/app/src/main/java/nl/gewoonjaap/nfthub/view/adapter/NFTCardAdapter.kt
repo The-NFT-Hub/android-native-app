@@ -41,6 +41,7 @@ class NFTCardAdapter(private val nftList: List<NFTDataResponse>):
     }
 
     class ViewHolder(ItemView: View): RecyclerView.ViewHolder(ItemView) {
+
         val imageView: ImageView = ItemView.findViewById(R.id.nft_image_card)
         val nameText: TextView = ItemView.findViewById(R.id.nft_name_card)
         val collectionText: TextView = ItemView.findViewById(R.id.nft_collection_card)

@@ -5,7 +5,7 @@ import nl.gewoonjaap.nfthub.BuildConfig
 object HttpRoutes {
     private const val ForceAccAPI: Boolean = true
     private const val BASE_URL_ACC = "https://api-acc-nfthub.mrproper.dev"
-    private const val BASE_URL_DEV = "http://localhost:3000"
+    private const val BASE_URL_DEV = "http://api-dev-nfthub.mrproper.dev:3000"
     var NFTProfile = "${getBaseUrl()}/account"
 
     private fun getBaseUrl() : String{
