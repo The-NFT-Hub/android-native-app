@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import kotlinx.coroutines.*
 import nl.gewoonjaap.nfthub.data.remote.UserProfileService
 import nl.gewoonjaap.nfthub.data.remote.dto.UserProfileDataResponse
+import nl.gewoonjaap.nfthub.helpers.StringHelper
 import nl.gewoonjaap.nfthub.view.adapter.NFTCardAdapter
 
 
@@ -61,7 +62,7 @@ class ProfileActivity : AppCompatActivity() {
 
         if(address.isEmpty()) address = "Unknown"
         addressTextView.apply {
-            this!!.text = address
+            this!!.text = StringHelper.ellipsize( address, 15)
         }
 
         addressTextView!!.setOnClickListener {
