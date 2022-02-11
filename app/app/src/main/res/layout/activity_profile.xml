@@ -52,16 +52,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/backgroundColor" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/NFT_Profile_Image"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginTop="40dp"
         android:elevation="10dp"
         android:padding="1dp"
+        android:scaleType="center"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/avatarImageView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
