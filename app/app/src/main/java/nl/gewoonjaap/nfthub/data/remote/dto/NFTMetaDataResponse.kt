@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NFTMetaDataResponse (
-    val name: String? = "Unknown name",
+    val name: String? = null,
     val description: String? = "Missing Description",
     val external_link: String? = null,
     val image: String? = null,
