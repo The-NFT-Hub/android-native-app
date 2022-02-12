@@ -3,6 +3,7 @@ package nl.gewoonjaap.nfthub
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
@@ -27,6 +28,7 @@ class ProfileActivity : AppCompatActivity() {
     private var address: String = ""
     private var chain: String = ""
     private var profileImage: ImageView? = null
+    private var bannerImage: ImageView? = null
     private var chainImage: ImageView? = null
     private var addressTextView: TextView? = null;
     private var recyclerView: RecyclerView? = null;
@@ -42,6 +44,7 @@ class ProfileActivity : AppCompatActivity() {
 
         addressTextView = findViewById(R.id.WalletAddress)
         profileImage = findViewById(R.id.NFT_Profile_Image)
+        bannerImage = findViewById(R.id.profileBannerImage)
         chainImage = findViewById(R.id.NFT_Profile_Chain_Image)
 
         setupRecyclerView()
@@ -94,6 +97,14 @@ class ProfileActivity : AppCompatActivity() {
                  Glide.with(this@ProfileActivity).load(profileImageURL)
                      .into(profileImage!!)
              }
+
+             if(userProfile.profileBanner != null && userProfile.profileBanner.isNotEmpty()){
+                 Glide.with(this@ProfileActivity).load(userProfile.profileBanner).into(bannerImage!!)
+             }
+             else{
+                 bannerImage!!.setColorFilter(Color.parseColor("#${address.takeLast(6)}"))
+             }
+
              if(userProfile.nfts.isEmpty()){
                  Toast.makeText(this@ProfileActivity, "This wallet has no NFTs", Toast.LENGTH_LONG).show()
              }

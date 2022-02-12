@@ -6,5 +6,6 @@ import kotlinx.serialization.Serializable
 data class UserProfileDataResponse (
     val nfts: List<NFTDataResponse>,
     val chain: String,
-    val address: String
+    val address: String,
+    val profileBanner: String? = ""
 )
