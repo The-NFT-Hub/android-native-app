@@ -93,7 +93,7 @@ class ProfileActivity : AppCompatActivity() {
          if(userProfile != null){
              Toast.makeText(this@ProfileActivity, "Got Data, nfts: ${userProfile.nfts.size}", Toast.LENGTH_LONG).show()
              if(profileImage != null && userProfile.nfts.isNotEmpty()) {
-                 val profileImageURL: String = userProfile.nfts.filter { it.metadata?.image != null }.random().metadata!!.image!!
+                 val profileImageURL: String = userProfile.profileImage ?: userProfile.nfts.filter { it.metadata?.image != null }.random().metadata!!.image!!
                  Glide.with(this@ProfileActivity).load(profileImageURL)
                      .into(profileImage!!)
              }
