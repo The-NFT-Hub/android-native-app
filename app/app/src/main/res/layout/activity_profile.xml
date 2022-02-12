@@ -16,7 +16,7 @@
         android:translationZ="1dp"
         android:elevation="10dp"
         android:layout_marginTop="-5dp"
-        android:background="@drawable/layout_bg"
+        app:shapeAppearanceOverlay="@style/roundedImageView"
         android:src="@color/launcher_background_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
