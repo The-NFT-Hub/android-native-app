@@ -7,6 +7,7 @@ object HttpRoutes {
     private const val BASE_URL_ACC = "https://api-acc-nfthub.mrproper.dev"
     private const val BASE_URL_DEV = "http://api-dev-nfthub.mrproper.dev:3000"
     var NFTProfile = "${getBaseUrl()}/account"
+    var NFT = "${getBaseUrl()}/nft"
 
     private fun getBaseUrl() : String{
         if(BuildConfig.DEBUG && !ForceAccAPI){

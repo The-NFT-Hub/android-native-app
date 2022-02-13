@@ -7,4 +7,5 @@
     <string name="nft_card_name_title">NFT Name # ID</string>
     <string name="nft_card_collection_name">NFT Collection Name</string>
     <string name="nft_card_description">NFT Description</string>
+    <string name="explore_nfts_header"><![CDATA[Explore NFTs 🔎]]></string>
 </resources>
