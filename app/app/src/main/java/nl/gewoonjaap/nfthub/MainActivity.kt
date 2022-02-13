@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.*
+import nl.gewoonjaap.nfthub.data.remote.CollectionService
 import nl.gewoonjaap.nfthub.data.remote.NFTService
+import nl.gewoonjaap.nfthub.data.remote.dto.HotCollectionDataResponse
 import nl.gewoonjaap.nfthub.data.remote.dto.NFTExploreDataResponse
 import nl.gewoonjaap.nfthub.helpers.ChainSelectorHelper
 import nl.gewoonjaap.nfthub.view.adapter.NFTCardSmallAdapter
@@ -23,11 +25,14 @@ const val WALLET_CHAIN = "nl.gewoonjaap.nfthub.CHAIN"
 
 class MainActivity : AppCompatActivity() {
 
-    private val client: NFTService = NFTService.create()
+    private val nftService: NFTService = NFTService.create()
+    private val collectionService: CollectionService = CollectionService.create()
     private var scope = CoroutineScope(Job() + Dispatchers.Main)
 
-    private var recyclerView: RecyclerView? = null;
-    private var adapter: NFTCardSmallAdapter = NFTCardSmallAdapter(emptyList())
+    private var exploreNFTRecyclerView: RecyclerView? = null;
+    private var hotCollectionRecyclerView: RecyclerView? = null;
+    private var exploreNFTAdapter: NFTCardSmallAdapter = NFTCardSmallAdapter(emptyList())
+    private var hotCollectionAdapter: NFTCardSmallAdapter = NFTCardSmallAdapter(emptyList())
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +45,9 @@ class MainActivity : AppCompatActivity() {
         setupRefreshLayout()
         setupWalletSearch()
         setupExploreRecyclerView()
+        setupHotCollectionRecyclerView()
         getExploreNFTData()
+        getHotCollectionData()
 
 
     }
@@ -48,6 +55,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupRefreshLayout() {
         swipeRefreshLayout.setOnRefreshListener {
                 getExploreNFTData()
+                getHotCollectionData()
         }
     }
 
@@ -65,10 +73,31 @@ class MainActivity : AppCompatActivity() {
         scope.cancel()
     }
 
+    private fun getHotCollectionData() {
+        swipeRefreshLayout.isRefreshing = true
+        scope.launch {
+            val hotCollections: HotCollectionDataResponse? = collectionService.getHotCollection()
+            swipeRefreshLayout.isRefreshing = false;
+            if(hotCollections != null){
+                Toast.makeText(this@MainActivity, "Got Data, hot collections: ${hotCollections.nfts.size}", Toast.LENGTH_LONG).show()
+
+                if(hotCollections.nfts.isEmpty()){
+                    Toast.makeText(this@MainActivity, "Hot collections is empty", Toast.LENGTH_LONG).show()
+                }
+                hotCollectionAdapter = NFTCardSmallAdapter(hotCollections.nfts)
+                hotCollectionRecyclerView!!.adapter = hotCollectionAdapter
+
+            }
+            else{
+                Toast.makeText(this@MainActivity, "Error while fetching explore nfts", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
     private fun getExploreNFTData() {
         swipeRefreshLayout.isRefreshing = true
         scope.launch {
-            val exploreNfts: NFTExploreDataResponse? = client.getNFTExplore()
+            val exploreNfts: NFTExploreDataResponse? = nftService.getNFTExplore()
             swipeRefreshLayout.isRefreshing = false;
             if(exploreNfts != null){
                 Toast.makeText(this@MainActivity, "Got Data, nfts: ${exploreNfts.nfts.size}", Toast.LENGTH_LONG).show()
@@ -76,8 +105,8 @@ class MainActivity : AppCompatActivity() {
                 if(exploreNfts.nfts.isEmpty()){
                     Toast.makeText(this@MainActivity, "Explore NFTs is empty", Toast.LENGTH_LONG).show()
                 }
-                adapter = NFTCardSmallAdapter(exploreNfts.nfts)
-                recyclerView!!.adapter = adapter
+                exploreNFTAdapter = NFTCardSmallAdapter(exploreNfts.nfts)
+                exploreNFTRecyclerView!!.adapter = exploreNFTAdapter
 
             }
             else{
@@ -117,9 +146,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupExploreRecyclerView(){
-        recyclerView = findViewById(R.id.explore_nft_recycler_view)
-        recyclerView!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        recyclerView!!.adapter = adapter
+        exploreNFTRecyclerView = findViewById(R.id.explore_nft_recycler_view)
+        exploreNFTRecyclerView!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        exploreNFTRecyclerView!!.adapter = exploreNFTAdapter
+    }
+
+    private fun setupHotCollectionRecyclerView() {
+        hotCollectionRecyclerView = findViewById(R.id.hotcollection_recycler_view)
+        hotCollectionRecyclerView!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        hotCollectionRecyclerView!!.adapter = hotCollectionAdapter
     }
 
 }

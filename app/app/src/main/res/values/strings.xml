@@ -8,4 +8,5 @@
     <string name="nft_card_collection_name">NFT Collection Name</string>
     <string name="nft_card_description">NFT Description</string>
     <string name="explore_nfts_header"><![CDATA[Explore NFTs 🔎]]></string>
+    <string name="hot_collections_header">Hot Collections 🌶️</string>
 </resources>
