@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.*
 import nl.gewoonjaap.nfthub.data.remote.NFTService
@@ -23,20 +24,36 @@ const val WALLET_CHAIN = "nl.gewoonjaap.nfthub.CHAIN"
 class MainActivity : AppCompatActivity() {
 
     private val client: NFTService = NFTService.create()
-    private val scope = CoroutineScope(Job() + Dispatchers.Main)
+    private var scope = CoroutineScope(Job() + Dispatchers.Main)
 
     private var recyclerView: RecyclerView? = null;
     private var adapter: NFTCardSmallAdapter = NFTCardSmallAdapter(emptyList())
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        swipeRefreshLayout = findViewById(R.id.main_swiperefreshlayout)
+
+
+        setupRefreshLayout()
         setupWalletSearch()
         setupExploreRecyclerView()
         getExploreNFTData()
 
 
+    }
+
+    private fun setupRefreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener {
+                getExploreNFTData()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        scope = CoroutineScope(Job() + Dispatchers.Main)
     }
 
     override fun onPause() {
@@ -49,8 +66,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getExploreNFTData() {
+        swipeRefreshLayout.isRefreshing = true
         scope.launch {
             val exploreNfts: NFTExploreDataResponse? = client.getNFTExplore()
+            swipeRefreshLayout.isRefreshing = false;
             if(exploreNfts != null){
                 Toast.makeText(this@MainActivity, "Got Data, nfts: ${exploreNfts.nfts.size}", Toast.LENGTH_LONG).show()
 

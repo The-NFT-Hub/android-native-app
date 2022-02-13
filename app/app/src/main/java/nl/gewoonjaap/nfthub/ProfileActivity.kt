@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.*
 import nl.gewoonjaap.nfthub.data.remote.UserProfileService
@@ -23,7 +24,7 @@ import nl.gewoonjaap.nfthub.view.adapter.NFTCardAdapter
 class ProfileActivity : AppCompatActivity() {
 
     private val client: UserProfileService = UserProfileService.create()
-    private val scope = CoroutineScope(Job() + Dispatchers.Main)
+    private var scope = CoroutineScope(Job() + Dispatchers.Main)
 
     private var address: String = ""
     private var chain: String = ""
@@ -33,6 +34,7 @@ class ProfileActivity : AppCompatActivity() {
     private var addressTextView: TextView? = null;
     private var recyclerView: RecyclerView? = null;
     private var adapter: NFTCardAdapter = NFTCardAdapter(emptyList())
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,12 +48,20 @@ class ProfileActivity : AppCompatActivity() {
         profileImage = findViewById(R.id.NFT_Profile_Image)
         bannerImage = findViewById(R.id.profileBannerImage)
         chainImage = findViewById(R.id.NFT_Profile_Chain_Image)
+        swipeRefreshLayout = findViewById(R.id.main_swiperefreshlayout)
 
+        setupRefreshLayout()
         setupRecyclerView()
         setupWalletAddressText()
         setupChainImage()
         getNFTProfileData()
 
+    }
+
+    private fun setupRefreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener {
+            getNFTProfileData()
+        }
     }
 
     private fun setupRecyclerView(){
@@ -87,7 +97,13 @@ class ProfileActivity : AppCompatActivity() {
         cleanUp()
     }
 
+    override fun onResume() {
+        super.onResume()
+        scope = CoroutineScope(Job() + Dispatchers.Main)
+    }
+
     private fun getNFTProfileData() {
+        swipeRefreshLayout.isRefreshing = true
      scope.launch {
          val userProfile: UserProfileDataResponse? = client.getUserProfile(chain, address)
          if(userProfile != null){
@@ -115,6 +131,7 @@ class ProfileActivity : AppCompatActivity() {
          else{
              Toast.makeText(this@ProfileActivity, "Invalid Wallet", Toast.LENGTH_LONG).show()
          }
+         swipeRefreshLayout.isRefreshing = false
      }
     }
     private fun cleanUp(){
