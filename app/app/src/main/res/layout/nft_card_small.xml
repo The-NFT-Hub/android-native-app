@@ -16,7 +16,7 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:scaleType="center"
+            android:scaleType="centerCrop"
             android:contentDescription="@string/nft_card_image_picture_description"
             app:shapeAppearanceOverlay="@style/roundedImageView"
             android:id="@+id/nft_image_card"
