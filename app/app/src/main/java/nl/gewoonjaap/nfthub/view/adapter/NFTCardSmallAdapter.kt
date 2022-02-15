@@ -10,10 +10,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import nl.gewoonjaap.nfthub.ProfileActivity
-import nl.gewoonjaap.nfthub.R
-import nl.gewoonjaap.nfthub.WALLET_ADDRESS
-import nl.gewoonjaap.nfthub.WALLET_CHAIN
+import nl.gewoonjaap.nfthub.*
 import nl.gewoonjaap.nfthub.data.remote.dto.NFTDataResponse
 
 class NFTCardSmallAdapter(private val nftList: List<NFTDataResponse>):
@@ -54,6 +51,19 @@ class NFTCardSmallAdapter(private val nftList: List<NFTDataResponse>):
             }
             ContextCompat.startActivity(parentView!!.context, intent, null)
         }
+
+        holder.imageView.setOnClickListener {
+            val intent = Intent(parentView!!.context, NFTDetailActivity::class.java).apply {
+                putExtra("NFT_IMAGE", nftItem.metadata?.image)
+                putExtra("NFT_NAME", nftItem.metadata?.name ?: "${nftItem.name ?: "Unknown Name"} #${nftItem.token_id}")
+                putExtra("NFT_DESCRIPTION", nftItem.metadata?.description?: "Missing Description")
+                putExtra("NFT_COLLECTION", nftItem.name)
+                putExtra("NFT_CHAIN", nftItem.chain)
+                putExtra("NFT_ADDRESS", nftItem.token_address)
+            }
+            ContextCompat.startActivity(parentView!!.context, intent, null)
+        }
+
     }
 
     override fun getItemCount(): Int {
