@@ -11,6 +11,8 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2995" />
         <entry key="app/src/main/res/drawable/layout_bg.xml" value="0.4185" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_nft_detail.xml" value="0.5192708333333333" />
+        <entry key="app/src/main/res/layout/activity_nftdetail.xml" value="0.3821428571428571" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/nft_card.xml" value="0.19814814814814816" />
         <entry key="app/src/main/res/layout/nft_card_small.xml" value="0.39776951672862454" />

@@ -45,6 +45,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/nft_card_collection_name"
                 android:maxLines="1"
+                android:autoSizeTextType="uniform"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="?android:attr/textColorSecondary"
                 android:id="@+id/nft_collection_card"
