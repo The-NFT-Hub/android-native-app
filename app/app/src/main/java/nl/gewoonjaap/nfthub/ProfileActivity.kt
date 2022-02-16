@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.coroutines.*
 import nl.gewoonjaap.nfthub.data.remote.UserProfileService
 import nl.gewoonjaap.nfthub.data.remote.dto.UserProfileDataResponse
@@ -36,6 +37,8 @@ class ProfileActivity : AppCompatActivity() {
     private var adapter: NFTCardAdapter = NFTCardAdapter(emptyList())
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
+    private lateinit var mFirebaseAnalytics: FirebaseAnalytics
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +46,8 @@ class ProfileActivity : AppCompatActivity() {
 
         address = intent.getStringExtra(WALLET_ADDRESS).toString()
         chain = intent.getStringExtra(WALLET_CHAIN).toString()
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
         addressTextView = findViewById(R.id.WalletAddress)
         profileImage = findViewById(R.id.NFT_Profile_Image)
@@ -56,6 +61,14 @@ class ProfileActivity : AppCompatActivity() {
         setupChainImage()
         getNFTProfileData()
 
+        logProfileActivityOpen()
+    }
+
+    private fun logProfileActivityOpen() {
+        val params = Bundle()
+        params.putString("nft_chain",  chain)
+        params.putString("nft_address", address)
+        mFirebaseAnalytics.logEvent("nft_profile_screen", params)
     }
 
     private fun setupRefreshLayout() {
@@ -129,6 +142,12 @@ class ProfileActivity : AppCompatActivity() {
 
          }
          else{
+             val params = Bundle()
+             params.putString("error_nft_profile", "No Data returned")
+             params.putString("error_nft_profile_chain", chain)
+             params.putString("error_nft_profile_address", address)
+             mFirebaseAnalytics.logEvent("eventErrorNftProfile", params)
+
              Toast.makeText(this@ProfileActivity, "Invalid Wallet", Toast.LENGTH_LONG).show()
          }
          swipeRefreshLayout.isRefreshing = false

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.coroutines.*
 import nl.gewoonjaap.nfthub.data.remote.CollectionService
 import nl.gewoonjaap.nfthub.data.remote.NFTService
@@ -18,6 +19,7 @@ import nl.gewoonjaap.nfthub.data.remote.dto.NFTExploreDataResponse
 import nl.gewoonjaap.nfthub.helpers.ChainSelectorHelper
 import nl.gewoonjaap.nfthub.view.adapter.NFTCardSmallAdapter
 import nl.gewoonjaap.nfthub.view.adapter.SimpleImageArrayAdapter
+
 
 const val WALLET_ADDRESS = "nl.gewoonjaap.nfthub.WALLET_ADDRESS"
 const val WALLET_CHAIN = "nl.gewoonjaap.nfthub.CHAIN"
@@ -35,11 +37,14 @@ class MainActivity : AppCompatActivity() {
     private var hotCollectionAdapter: NFTCardSmallAdapter = NFTCardSmallAdapter(emptyList())
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
+    private lateinit var mFirebaseAnalytics: FirebaseAnalytics
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         swipeRefreshLayout = findViewById(R.id.main_swiperefreshlayout)
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
 
         setupRefreshLayout()
@@ -89,7 +94,10 @@ class MainActivity : AppCompatActivity() {
 
             }
             else{
-                Toast.makeText(this@MainActivity, "Error while fetching explore nfts", Toast.LENGTH_LONG).show()
+                val params = Bundle()
+                params.putString("error_hot_collections", "No Data returned")
+                mFirebaseAnalytics.logEvent("eventErrorHotCollections", params)
+                Toast.makeText(this@MainActivity, "Error while fetching hot collections", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -110,6 +118,10 @@ class MainActivity : AppCompatActivity() {
 
             }
             else{
+                val params = Bundle()
+                params.putString("error_explore_nfts", "No Data returned")
+                mFirebaseAnalytics.logEvent("eventErrorExploreNfts", params)
+
                 Toast.makeText(this@MainActivity, "Error while fetching explore nfts", Toast.LENGTH_LONG).show()
             }
         }
