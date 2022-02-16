@@ -71,7 +71,7 @@
         android:elevation="10dp"
         android:translationZ="2dp"
         android:padding="1dp"
-        android:scaleType="center"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -10,7 +10,7 @@
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/NFT_detail_image"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="310dp"
         android:scaleType="centerCrop"
         android:background="@color/launcher_background_color"
         app:layout_constraintEnd_toEndOf="parent"

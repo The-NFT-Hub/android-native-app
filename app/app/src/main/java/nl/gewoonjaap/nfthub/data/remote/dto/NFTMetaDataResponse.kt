@@ -8,5 +8,7 @@ data class NFTMetaDataResponse (
     val description: String? = "Missing Description",
     val external_link: String? = null,
     val image: String? = null,
+    val video: String? = null,
+    val animation_url: String? = null,
     val attributes: List<NFTAttributesResponse>? = emptyList()
     )
