@@ -26,6 +26,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private val client: UserProfileService = UserProfileService.create()
     private var scope = CoroutineScope(Job() + Dispatchers.Main)
+    private var jobs: MutableList<Job> = mutableListOf()
 
     private var address: String = ""
     private var chain: String = ""
@@ -117,7 +118,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun getNFTProfileData() {
         swipeRefreshLayout.isRefreshing = true
-     scope.launch {
+     val job = scope.launch {
          val userProfile: UserProfileDataResponse? = client.getUserProfile(chain, address)
          if(userProfile != null){
              Toast.makeText(this@ProfileActivity, "Got Data, nfts: ${userProfile.nfts.size}", Toast.LENGTH_LONG).show()
@@ -152,8 +153,15 @@ class ProfileActivity : AppCompatActivity() {
          }
          swipeRefreshLayout.isRefreshing = false
      }
+        jobs.add(job)
     }
     private fun cleanUp(){
         scope.cancel()
+        jobs.forEach {
+            try {
+                it.cancel("View closed")
+            } catch(e: Exception){}
+        }
+        jobs = mutableListOf()
     }
 }

@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private val nftService: NFTService = NFTService.create()
     private val collectionService: CollectionService = CollectionService.create()
     private var scope = CoroutineScope(Job() + Dispatchers.Main)
+    private var jobs: MutableList<Job> = mutableListOf()
 
     private var exploreNFTRecyclerView: RecyclerView? = null;
     private var hotCollectionRecyclerView: RecyclerView? = null;
@@ -74,13 +75,19 @@ class MainActivity : AppCompatActivity() {
         cleanUp()
     }
 
-    private fun cleanUp() {
+    private fun cleanUp(){
         scope.cancel()
+        jobs.forEach {
+            try {
+                it.cancel("View closed")
+            } catch(e: Exception){}
+        }
+        jobs = mutableListOf()
     }
 
     private fun getHotCollectionData() {
         swipeRefreshLayout.isRefreshing = true
-        scope.launch {
+        var job = scope.launch {
             val hotCollections: HotCollectionDataResponse? = collectionService.getHotCollection()
             swipeRefreshLayout.isRefreshing = false;
             if(hotCollections != null){
@@ -100,11 +107,12 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "Error while fetching hot collections", Toast.LENGTH_LONG).show()
             }
         }
+        jobs.add(job)
     }
 
     private fun getExploreNFTData() {
         swipeRefreshLayout.isRefreshing = true
-        scope.launch {
+       var job = scope.launch {
             val exploreNfts: NFTExploreDataResponse? = nftService.getNFTExplore()
             swipeRefreshLayout.isRefreshing = false;
             if(exploreNfts != null){
@@ -125,6 +133,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "Error while fetching explore nfts", Toast.LENGTH_LONG).show()
             }
         }
+        jobs.add(job)
     }
 
     private fun setupWalletSearch(){
