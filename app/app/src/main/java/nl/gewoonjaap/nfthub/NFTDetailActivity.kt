@@ -57,6 +57,7 @@ class NFTDetailActivity : AppCompatActivity() {
     }
 
     private fun setupOnOwnerClick() {
+        if(owner_address == "Unknown") return
         NFTOwnerText.setOnClickListener {
 
             val intent = Intent(this, ProfileActivity::class.java).apply {
@@ -77,7 +78,6 @@ class NFTDetailActivity : AppCompatActivity() {
     }
 
     private fun setupOnCollectionClick() {
-
         NFTCollectionText.setOnClickListener {
 
             val intent = Intent(this, ProfileActivity::class.java).apply {
