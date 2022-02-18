@@ -9,4 +9,8 @@
     <string name="nft_card_description">NFT Description</string>
     <string name="explore_nfts_header"><![CDATA[Explore NFTs 🔎]]></string>
     <string name="hot_collections_header">Hot Collections 🌶️</string>
+    <string name="nft_owner_name">NFT Owner name</string>
+    <string name="nft_collection_name">NFT Collection name</string>
+    <string name="nft_description">NFT Description</string>
+    <string name="nft_name_id">NFT Name #ID</string>
 </resources>
