@@ -14,8 +14,10 @@ class NFTDetailActivity : AppCompatActivity() {
     lateinit var NFTNameText: TextView
     lateinit var NFTDescription: TextView
     lateinit var NFTCollectionText: TextView
+    lateinit var NFTOwnerText: TextView
     lateinit var chain: String
     lateinit var token_address: String
+    lateinit var owner_address: String
 
     private lateinit var mFirebaseAnalytics: FirebaseAnalytics
 
@@ -24,6 +26,7 @@ class NFTDetailActivity : AppCompatActivity() {
     private var NFT_COLLECTION: String = "NFT_COLLECTION"
     private var NFT_CHAIN: String = "NFT_CHAIN"
     private var NFT_ADDRESS: String = "NFT_ADDRESS"
+    private var NFT_OWNER: String = "NFT_OWNER"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,17 +38,32 @@ class NFTDetailActivity : AppCompatActivity() {
         NFTNameText = findViewById(R.id.NFT_detail_header)
         NFTDescription = findViewById(R.id.NFT_detail_description)
         NFTCollectionText = findViewById(R.id.NFT_detail_collection)
+        NFTOwnerText = findViewById(R.id.NFT_detail_owner)
 
         NFTNameText.text = intent.getStringExtra(NFT_NAME)
         NFTDescription.text = intent.getStringExtra(NFT_DESCRIPTION)
-        NFTCollectionText.text = intent.getStringExtra(NFT_COLLECTION)
+        NFTCollectionText.text =  "Collection: ${intent.getStringExtra(NFT_COLLECTION)}"
+        NFTOwnerText.text = "Owner: ${intent.getStringExtra(NFT_OWNER)}"
         chain = intent.getStringExtra(NFT_CHAIN).toString()
         token_address = intent.getStringExtra(NFT_ADDRESS).toString()
+        owner_address = intent.getStringExtra(NFT_OWNER).toString()
 
         setupNFTImageView()
         setupOnCollectionClick()
+        setupOnOwnerClick()
 
         logScreenOpen()
+    }
+
+    private fun setupOnOwnerClick() {
+        NFTOwnerText.setOnClickListener {
+
+            val intent = Intent(this, ProfileActivity::class.java).apply {
+                putExtra(WALLET_ADDRESS, owner_address)
+                putExtra(WALLET_CHAIN, chain)
+            }
+            ContextCompat.startActivity(this, intent, null)
+        }
     }
 
     private fun logScreenOpen(){
