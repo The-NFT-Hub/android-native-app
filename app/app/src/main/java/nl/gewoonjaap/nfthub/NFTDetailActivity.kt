@@ -113,7 +113,7 @@ class NFTDetailActivity : AppCompatActivity() {
                 owner_address = nftData.owner_of
                     setupOwnerText()
                 }
-                if(nftData.metadata?.description != null){
+                if(nftData.metadata?.description != null && nftData.metadata.description.isNotEmpty()){
                     NFTDescription.text = nftData.metadata.description
                 }
             }
