@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity() {
                 params.putString("error_explore_nfts", "No Data returned")
                 mFirebaseAnalytics.logEvent("eventErrorExploreNfts", params)
 
-                Toast.makeText(this@MainActivity, "Error while fetching explore nfts", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@MainActivity, "Error while fetching explore nfts", Toast.LENGTH_SHORT).show()
             }
         }
         jobs.add(job)
@@ -156,7 +156,7 @@ class MainActivity : AppCompatActivity() {
         getNFTButton.setOnClickListener {
             val walletAddress = inputAddress.text.toString().trim()
             val chain: String = ChainSelectorHelper.getChainByDrawable(spinner.selectedItem.toString())
-            Toast.makeText(this, "Wallet Address: $walletAddress chain: ${chain}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Wallet Address: $walletAddress chain: ${chain}", Toast.LENGTH_SHORT).show()
 
             val intent = Intent(this, ProfileActivity::class.java).apply {
                 putExtra(WALLET_ADDRESS, walletAddress)

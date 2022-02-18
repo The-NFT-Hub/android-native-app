@@ -61,6 +61,7 @@ class NFTCardSmallAdapter(private val nftList: List<NFTDataResponse>):
                 putExtra("NFT_CHAIN", nftItem.chain)
                 putExtra("NFT_ADDRESS", nftItem.token_address)
                 putExtra("NFT_OWNER", nftItem.owner_of)
+                putExtra("NFT_TOKEN_ID", nftItem.token_id)
             }
             ContextCompat.startActivity(parentView!!.context, intent, null)
         }
