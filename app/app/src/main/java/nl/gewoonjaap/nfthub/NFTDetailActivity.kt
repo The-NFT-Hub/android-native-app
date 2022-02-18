@@ -7,6 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.coroutines.*
@@ -29,6 +30,7 @@ class NFTDetailActivity : AppCompatActivity() {
     lateinit var owner_address: String
     lateinit var token_ID: String
     lateinit var collection_name: String
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     private lateinit var mFirebaseAnalytics: FirebaseAnalytics
 
@@ -51,6 +53,7 @@ class NFTDetailActivity : AppCompatActivity() {
         NFTDescription = findViewById(R.id.NFT_detail_description)
         NFTCollectionText = findViewById(R.id.NFT_detail_collection)
         NFTOwnerText = findViewById(R.id.NFT_detail_owner)
+        swipeRefreshLayout = findViewById(R.id.main_swiperefreshlayout)
 
         NFTNameText.text = intent.getStringExtra(NFT_NAME)
         NFTDescription.text = intent.getStringExtra(NFT_DESCRIPTION)
@@ -63,6 +66,7 @@ class NFTDetailActivity : AppCompatActivity() {
         setupNFTImageView()
         setupCollectionText()
         setupOwnerText()
+        setupRefreshLayout()
         fetchNFTApiData()
         logScreenOpen()
     }
@@ -77,6 +81,12 @@ class NFTDetailActivity : AppCompatActivity() {
         scope = CoroutineScope(Job() + Dispatchers.Main)
     }
 
+    private fun setupRefreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener {
+            fetchNFTApiData()
+        }
+    }
+
     private fun cleanUp(){
         scope.cancel()
         jobs.forEach {
@@ -88,6 +98,7 @@ class NFTDetailActivity : AppCompatActivity() {
     }
 
     private fun fetchNFTApiData() {
+        swipeRefreshLayout.isRefreshing = true
         val job = scope.launch {
             val nftData: NFTDataResponse? = client.getNFTDetails(chain, token_address, token_ID)
             if(nftData != null){
@@ -109,6 +120,7 @@ class NFTDetailActivity : AppCompatActivity() {
             else{
                 Toast.makeText(this@NFTDetailActivity, "Failed to get NFT Details data", Toast.LENGTH_SHORT).show()
             }
+            swipeRefreshLayout.isRefreshing = false
         }
         jobs.add(job)
     }
