@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.google.firebase.analytics.FirebaseAnalytics
+import nl.gewoonjaap.nfthub.helpers.StringHelper
 
 class NFTDetailActivity : AppCompatActivity() {
     lateinit var NFTImageView: ImageView
@@ -42,8 +43,8 @@ class NFTDetailActivity : AppCompatActivity() {
 
         NFTNameText.text = intent.getStringExtra(NFT_NAME)
         NFTDescription.text = intent.getStringExtra(NFT_DESCRIPTION)
-        NFTCollectionText.text =  "Collection: ${intent.getStringExtra(NFT_COLLECTION)}"
-        NFTOwnerText.text = "Owner: ${intent.getStringExtra(NFT_OWNER)}"
+        NFTCollectionText.text =  StringHelper.ellipsize("Collection: ${intent.getStringExtra(NFT_COLLECTION)}", 40)
+        NFTOwnerText.text = StringHelper.ellipsize("Owner: ${intent.getStringExtra(NFT_OWNER)}", 40)
         chain = intent.getStringExtra(NFT_CHAIN).toString()
         token_address = intent.getStringExtra(NFT_ADDRESS).toString()
         owner_address = intent.getStringExtra(NFT_OWNER).toString()
