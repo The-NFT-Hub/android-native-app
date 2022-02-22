@@ -34,8 +34,8 @@ class ProfileActivity : AppCompatActivity() {
     private var profileImage: ImageView? = null
     private var bannerImage: ImageView? = null
     private var chainImage: ImageView? = null
-    private var addressTextView: TextView? = null;
-    private var recyclerView: RecyclerView? = null;
+    private var addressTextView: TextView? = null
+    private var recyclerView: RecyclerView? = null
     private var adapter: NFTCardAdapter = NFTCardAdapter(emptyList())
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
@@ -68,7 +68,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun logProfileActivityOpen() {
         val params = Bundle()
-        params.putString("nft_chain",  chain)
+        params.putString("nft_chain", chain)
         params.putString("nft_address", address)
         mFirebaseAnalytics.logEvent("nft_profile_screen", params)
     }
@@ -79,22 +79,22 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         recyclerView = findViewById(R.id.nft_card_recyclerView)
         recyclerView!!.layoutManager = LinearLayoutManager(this)
         recyclerView!!.adapter = adapter
     }
 
-    private fun setupChainImage(){
+    private fun setupChainImage() {
         chainImage!!.setImageResource(ChainSelectorHelper.getChainDrawableByName(chain))
     }
 
-    private fun setupWalletAddressText(){
-        if(addressTextView == null) return
+    private fun setupWalletAddressText() {
+        if (addressTextView == null) return
 
-        if(address.isEmpty()) address = "Unknown"
+        if (address.isEmpty()) address = "Unknown"
         addressTextView.apply {
-            this!!.text = StringHelper.ellipsize( address, 15)
+            this!!.text = StringHelper.ellipsize(address, 15)
         }
 
         addressTextView!!.setOnClickListener {
@@ -119,49 +119,57 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun getNFTProfileData() {
         swipeRefreshLayout.isRefreshing = true
-     val job = scope.launch {
-         val userProfile: UserProfileDataResponse? = client.getUserProfile(chain, address)
-         if(userProfile != null){
-             //Toast.makeText(this@ProfileActivity, "Got Data, nfts: ${userProfile.nfts.size}", Toast.LENGTH_LONG).show()
-             if(profileImage != null && userProfile.nfts.isNotEmpty()) {
-                 val profileImageURL: String = userProfile.profileImage ?: userProfile.nfts.filter { it.metadata?.image != null }.random().metadata!!.image!!
-                 Glide.with(this@ProfileActivity).load(profileImageURL)
-                     .into(profileImage!!)
-             }
+        val job = scope.launch {
+            val userProfile: UserProfileDataResponse? = client.getUserProfile(chain, address)
+            if (userProfile != null) {
+                //Toast.makeText(this@ProfileActivity, "Got Data, nfts: ${userProfile.nfts.size}", Toast.LENGTH_LONG).show()
+                if (profileImage != null && userProfile.nfts.isNotEmpty()) {
+                    val profileImageURL: String = userProfile.profileImage
+                        ?: userProfile.nfts.filter { it.metadata?.image != null }
+                            .random().metadata!!.image!!
+                    Glide.with(this@ProfileActivity).load(profileImageURL)
+                        .into(profileImage!!)
+                }
 
-             if(userProfile.profileBanner != null && userProfile.profileBanner.isNotEmpty()){
-                 Glide.with(this@ProfileActivity).load(userProfile.profileBanner).placeholder(Color.parseColor("#${address.takeLast(6)}").toDrawable()).into(bannerImage!!)
-             }
-             else{
-                 bannerImage!!.setColorFilter(Color.parseColor("#${address.takeLast(6)}"))
-             }
+                if (userProfile.profileBanner != null && userProfile.profileBanner.isNotEmpty()) {
+                    Glide.with(this@ProfileActivity).load(userProfile.profileBanner)
+                        .placeholder(Color.parseColor("#${address.takeLast(6)}").toDrawable())
+                        .into(bannerImage!!)
+                } else {
+                    bannerImage!!.setColorFilter(Color.parseColor("#${address.takeLast(6)}"))
+                }
 
-             if(userProfile.nfts.isEmpty()){
-                 Toast.makeText(this@ProfileActivity, "This wallet has no NFTs", Toast.LENGTH_LONG).show()
-             }
-             adapter = NFTCardAdapter(userProfile.nfts)
-             recyclerView!!.adapter = adapter
+                if (userProfile.nfts.isEmpty()) {
+                    Toast.makeText(
+                        this@ProfileActivity,
+                        "This wallet has no NFTs",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                adapter = NFTCardAdapter(userProfile.nfts)
+                recyclerView!!.adapter = adapter
 
-         }
-         else{
-             val params = Bundle()
-             params.putString("error_nft_profile", "No Data returned")
-             params.putString("error_nft_profile_chain", chain)
-             params.putString("error_nft_profile_address", address)
-             mFirebaseAnalytics.logEvent("eventErrorNftProfile", params)
+            } else {
+                val params = Bundle()
+                params.putString("error_nft_profile", "No Data returned")
+                params.putString("error_nft_profile_chain", chain)
+                params.putString("error_nft_profile_address", address)
+                mFirebaseAnalytics.logEvent("eventErrorNftProfile", params)
 
-             Toast.makeText(this@ProfileActivity, "Invalid Wallet", Toast.LENGTH_LONG).show()
-         }
-         swipeRefreshLayout.isRefreshing = false
-     }
+                Toast.makeText(this@ProfileActivity, "Invalid Wallet", Toast.LENGTH_LONG).show()
+            }
+            swipeRefreshLayout.isRefreshing = false
+        }
         jobs.add(job)
     }
-    private fun cleanUp(){
+
+    private fun cleanUp() {
         scope.cancel()
         jobs.forEach {
             try {
                 it.cancel("View closed")
-            } catch(e: Exception){}
+            } catch (e: Exception) {
+            }
         }
         jobs = mutableListOf()
     }

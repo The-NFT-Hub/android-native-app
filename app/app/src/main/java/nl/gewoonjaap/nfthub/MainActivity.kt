@@ -32,8 +32,8 @@ class MainActivity : AppCompatActivity() {
     private var scope = CoroutineScope(Job() + Dispatchers.Main)
     private var jobs: MutableList<Job> = mutableListOf()
 
-    private var exploreNFTRecyclerView: RecyclerView? = null;
-    private var hotCollectionRecyclerView: RecyclerView? = null;
+    private var exploreNFTRecyclerView: RecyclerView? = null
+    private var hotCollectionRecyclerView: RecyclerView? = null
     private var exploreNFTAdapter: NFTCardSmallAdapter = NFTCardSmallAdapter(emptyList())
     private var hotCollectionAdapter: NFTCardSmallAdapter = NFTCardSmallAdapter(emptyList())
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         swipeRefreshLayout.isRefreshing = true
         var job = scope.launch {
             val hotCollections: HotCollectionDataResponse? = collectionService.getHotCollection()
-            swipeRefreshLayout.isRefreshing = false;
+            swipeRefreshLayout.isRefreshing = false
             if(hotCollections != null){
                 //Toast.makeText(this@MainActivity, "Got Data, hot collections: ${hotCollections.nfts.size}", Toast.LENGTH_LONG).show()
 
@@ -114,8 +114,8 @@ class MainActivity : AppCompatActivity() {
         swipeRefreshLayout.isRefreshing = true
        var job = scope.launch {
             val exploreNfts: NFTExploreDataResponse? = nftService.getNFTExplore()
-            swipeRefreshLayout.isRefreshing = false;
-            if(exploreNfts != null){
+            swipeRefreshLayout.isRefreshing = false
+           if(exploreNfts != null){
                 //Toast.makeText(this@MainActivity, "Got Data, nfts: ${exploreNfts.nfts.size}", Toast.LENGTH_LONG).show()
 
                 if(exploreNfts.nfts.isEmpty()){
