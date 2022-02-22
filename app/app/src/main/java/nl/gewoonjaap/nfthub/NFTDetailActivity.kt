@@ -102,7 +102,7 @@ class NFTDetailActivity : AppCompatActivity() {
         val job = scope.launch {
             val nftData: NFTDataResponse? = client.getNFTDetails(chain, token_address, token_ID)
             if(nftData != null){
-                Toast.makeText(this@NFTDetailActivity, "Got NFT Details Data", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@NFTDetailActivity, "Got NFT Details Data", Toast.LENGTH_SHORT).show()
                 if(nftData.metadata?.image ?: nftData.metadata?.animation_url != null) {
                     Glide.with(this@NFTDetailActivity)
                         .load(nftData.metadata?.image ?: nftData.metadata?.animation_url)

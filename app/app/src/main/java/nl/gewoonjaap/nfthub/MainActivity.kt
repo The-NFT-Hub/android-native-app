@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
             val hotCollections: HotCollectionDataResponse? = collectionService.getHotCollection()
             swipeRefreshLayout.isRefreshing = false;
             if(hotCollections != null){
-                Toast.makeText(this@MainActivity, "Got Data, hot collections: ${hotCollections.nfts.size}", Toast.LENGTH_LONG).show()
+                //Toast.makeText(this@MainActivity, "Got Data, hot collections: ${hotCollections.nfts.size}", Toast.LENGTH_LONG).show()
 
                 if(hotCollections.nfts.isEmpty()){
                     Toast.makeText(this@MainActivity, "Hot collections is empty", Toast.LENGTH_LONG).show()
@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity() {
             val exploreNfts: NFTExploreDataResponse? = nftService.getNFTExplore()
             swipeRefreshLayout.isRefreshing = false;
             if(exploreNfts != null){
-                Toast.makeText(this@MainActivity, "Got Data, nfts: ${exploreNfts.nfts.size}", Toast.LENGTH_LONG).show()
+                //Toast.makeText(this@MainActivity, "Got Data, nfts: ${exploreNfts.nfts.size}", Toast.LENGTH_LONG).show()
 
                 if(exploreNfts.nfts.isEmpty()){
                     Toast.makeText(this@MainActivity, "Explore NFTs is empty", Toast.LENGTH_LONG).show()
@@ -156,7 +156,7 @@ class MainActivity : AppCompatActivity() {
         getNFTButton.setOnClickListener {
             val walletAddress = inputAddress.text.toString().trim()
             val chain: String = ChainSelectorHelper.getChainByDrawable(spinner.selectedItem.toString())
-            Toast.makeText(this, "Wallet Address: $walletAddress chain: ${chain}", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Wallet Address: $walletAddress chain: ${chain}", Toast.LENGTH_SHORT).show()
 
             val intent = Intent(this, ProfileActivity::class.java).apply {
                 putExtra(WALLET_ADDRESS, walletAddress)

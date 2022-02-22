@@ -43,7 +43,7 @@ class NFTCardSmallAdapter(private val nftList: List<NFTDataResponse>):
         holder.collectionText.setOnClickListener {
             val walletAddress = nftItem.token_address
             val chain: String = nftItem.chain!!
-            Toast.makeText(parentView!!.context, "Wallet Address: $walletAddress chain: $chain", Toast.LENGTH_LONG).show()
+            //Toast.makeText(parentView!!.context, "Wallet Address: $walletAddress chain: $chain", Toast.LENGTH_LONG).show()
 
             val intent = Intent(parentView!!.context, ProfileActivity::class.java).apply {
                 putExtra(WALLET_ADDRESS, walletAddress)

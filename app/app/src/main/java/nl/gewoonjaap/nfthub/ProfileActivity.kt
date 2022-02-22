@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -121,7 +122,7 @@ class ProfileActivity : AppCompatActivity() {
      val job = scope.launch {
          val userProfile: UserProfileDataResponse? = client.getUserProfile(chain, address)
          if(userProfile != null){
-             Toast.makeText(this@ProfileActivity, "Got Data, nfts: ${userProfile.nfts.size}", Toast.LENGTH_LONG).show()
+             //Toast.makeText(this@ProfileActivity, "Got Data, nfts: ${userProfile.nfts.size}", Toast.LENGTH_LONG).show()
              if(profileImage != null && userProfile.nfts.isNotEmpty()) {
                  val profileImageURL: String = userProfile.profileImage ?: userProfile.nfts.filter { it.metadata?.image != null }.random().metadata!!.image!!
                  Glide.with(this@ProfileActivity).load(profileImageURL)
@@ -129,7 +130,7 @@ class ProfileActivity : AppCompatActivity() {
              }
 
              if(userProfile.profileBanner != null && userProfile.profileBanner.isNotEmpty()){
-                 Glide.with(this@ProfileActivity).load(userProfile.profileBanner).into(bannerImage!!)
+                 Glide.with(this@ProfileActivity).load(userProfile.profileBanner).placeholder(Color.parseColor("#${address.takeLast(6)}").toDrawable()).into(bannerImage!!)
              }
              else{
                  bannerImage!!.setColorFilter(Color.parseColor("#${address.takeLast(6)}"))
